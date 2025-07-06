@@ -37,8 +37,9 @@ def plot_model(df: pl.DataFrame, input_keys, output_keys):
     for i,key in enumerate(output_keys):
         res_dict[f'ML {key}'] = res_y[:,i]
 
-
+    
     new_df = pl.DataFrame(res_dict)
+    new_df.write_csv('training_results.csv')
     [pwrap.graph_all(new_df, key).show() for key in input_keys]
 
 plot_model(

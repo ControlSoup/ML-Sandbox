@@ -26,19 +26,19 @@ class FluidModel(nn.Module):
         self.model = nn.Sequential(
 
             # Input
-            nn.Linear(2,3),
+            nn.Linear(2,4),
             nn.LeakyReLU(),
 
             # Hidden
-            nn.Linear(3,3),
+            nn.Linear(4,4),
             nn.LeakyReLU(),
-            nn.Linear(3,3),
+            nn.Linear(4,4),
             nn.LeakyReLU(),
-            nn.Linear(3,3),
+            nn.Linear(4,4),
             nn.LeakyReLU(),
 
             # Output
-            nn.Linear(3,2)
+            nn.Linear(4,2)
         )
 
     def forward(self, x):

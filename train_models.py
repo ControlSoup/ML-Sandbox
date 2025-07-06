@@ -59,6 +59,7 @@ for key in training_df:
 
 
 ml_data = pl.from_dict(ml_data)
+px.histogram(ml_data).show()
 with open(config_path, '+w') as f:
     f.write(yaml.dump(ml_config))
 
