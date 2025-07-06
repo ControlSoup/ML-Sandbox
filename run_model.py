@@ -34,17 +34,17 @@ def plot_model(df: pl.DataFrame, input_keys, output_keys):
 
     res_dict = {}
     res_dict = {k.name: k.to_numpy() for k in df}
+    print(res_dict['Specific Enthalpy [J/kg]'])
     for i,key in enumerate(output_keys):
+        actual = res_dict[key]
         res_dict[f'ML {key}'] = res_y[:,i]
+        res_dict[f'ML {key} % Error'] = (actual - res_dict[f'ML {key}']) / actual 
 
-    
     new_df = pl.DataFrame(res_dict)
-    new_df.write_csv('training_results.csv')
     [pwrap.graph_all(new_df, key).show() for key in input_keys]
 
 plot_model(
     pl.read_csv('training/validation_nitrogen_pt.csv'), 
     ['Press [Pa]', 'Temp [degK]'],
-    ['Density [kg/m^3]', 'Specific Entahlpy [J/kg]'],
-    output_path='example.html'
+    ['Density [kg/m^3]', 'Specific Enthalpy [J/kg]'],
 )

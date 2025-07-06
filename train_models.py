@@ -59,7 +59,6 @@ for key in training_df:
 
 
 ml_data = pl.from_dict(ml_data)
-px.histogram(ml_data).show()
 with open(config_path, '+w') as f:
     f.write(yaml.dump(ml_config))
 
@@ -88,11 +87,12 @@ validationloader = DataLoader(
 model.to(device)
 
 criterion = nn.MSELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.1)
+
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0005)
 
 # Training loop
 train_loss, valid_loss = [], []
-epochs = range(60)
+epochs = range(500)
 
 for i,epoch in enumerate(epochs):
 
@@ -131,5 +131,5 @@ torch.save(model.state_dict(), f'{title}.pt')
 pwrap.graph_all(
     pl.DataFrame({'Training Loss': train_loss, 'Validation Loss': valid_loss, 'Epochs': epochs}), 
     'Epochs',
-    title= "Training Summary"
+    title= f"Training Summary"
 ).show()
